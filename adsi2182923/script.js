@@ -57,6 +57,15 @@ var phones =
 
 document.getElementById("phones").onchange = function(){
 
+
+    for(var a = 0; a < selectedOption.length; a++){
+        if (selectedOption[a].checked) {
+            option_selected = selectedOption[a].value;
+            console.log(option_selected)
+
+        }
+    }
+
     var selectedOption = document.getElementById("phones").value;
     var imagen = phones[selectedOption].imageUrl;
     document.getElementById("phone_image")
@@ -69,16 +78,5 @@ document.getElementById("phones").onchange = function(){
 
     var precioCel = phones[selectedOption].price
     document.getElementById("phone_price")
-
-    for(var a = 0; a < selectedOption.length; a++){
-        if (selectedOption[a].checked) {
-            option_selected = selectedOption[a].value;
-            console.log(option_selected)
-
-        }
-    }
-
-
-
 
 }
