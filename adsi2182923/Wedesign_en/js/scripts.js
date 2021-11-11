@@ -63,6 +63,56 @@ var ourServices = [
   
 ];
 
+var estadoActual = 0;
+var flechaIzquierda = document.getElementById("service-previous");
+var flechaDerecha = document.getElementById("service-next");
+var titulo = document.getElementById("service-title");
+var texto = document.getElementById("service-text");
+
+/* 
+
+if(estadoActual == 0){
+  estadoActual = ourServices.length-1;
+}else{
+  estadoActual += 1;
+}
+ */
+
+
+
+flechaDerecha.onclick = function(){
+
+  document.getElementById("service-title").innerHTML = ourServices[estadoActual]["title"];
+  document.getElementById("service-text").innerHTML = ourServices[estadoActual]["text"];
+  
+  if(estadoActual == ourServices.length-1){
+    estadoActual = 0;
+  }else{
+    estadoActual += 1;
+  }
+  
+  
+}
+
+flechaIzquierda.onclick = function(){
+
+  document.getElementById("service-title").innerHTML = ourServices[estadoActual]["title"];
+  document.getElementById("service-text").innerHTML = ourServices[estadoActual]["text"];
+
+  if(estadoActual == 0){
+    estadoActual = ourServices.length-1;
+  }else{
+    estadoActual -= 1;
+  }
+
+  
+  
+  
+
+}
+
+
+
 
 
 
