@@ -119,6 +119,9 @@ flechaIzquierda.onclick = function(){
 
 
 // Footer
+var fechaActual = new Date();
+
+ document.getElementById("current_year").innerHTML = fechaActual.getFullYear();
 
 
 
