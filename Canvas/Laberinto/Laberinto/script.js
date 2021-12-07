@@ -16,20 +16,28 @@ var mina = 60;
 var pocion = 10;
 var Cmina = "#a3adad"
 var Cpocion = "#1ce662"
+var enemigo =[];
+var  tileMap;
+var ImgAntorcha =[];
 
 var protagonista;
 
 var Escenario = [
-    [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1],
-    [0,0,2,2,2,2,2,1,2,2,2,6,1,2,2,2],
-    [0,0,2,2,2,0,0,1,1,2,1,1,1,2,0,2],
-    [0,0,0,0,2,2,2,2,2,2,2,1,1,2,0,5],
-    [0,1,1,1,1,2,2,1,2,0,1,1,4,2,0,2],
-    [0,1,2,6,1,0,2,1,2,0,1,0,0,0,0,2],
-    [0,1,2,0,1,1,2,2,2,2,2,2,2,2,2,2],
-    [0,1,2,2,2,2,2,0,6,1,1,0,0,0,0,0],
-    [0,1,1,1,2,0,0,0,1,1,1,2,2,2,5,0],
-    [0,1,1,1,2,2,2,2,2,2,2,2,1,1,3,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,2,2,2,2,2,1,2,2,2,6,1,2,2,0],
+    [0,0,2,2,2,0,0,1,1,2,1,1,1,2,0,0],
+    [0,0,0,0,2,2,2,2,2,2,2,1,1,2,0,0],
+    [0,2,0,0,0,2,2,1,2,0,1,1,3,2,0,0],
+    [0,2,2,2,1,0,2,1,2,0,1,0,0,0,0,0],
+    [0,2,2,0,1,1,2,2,2,2,2,2,2,2,2,0],
+    [0,2,2,2,2,2,2,0,6,1,1,0,0,0,0,0],
+    [0,2,2,2,2,0,0,0,1,1,1,2,2,2,5,0],
+    [0,2,2,2,2,2,2,2,2,2,2,2,0,0,1,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
     
@@ -39,7 +47,9 @@ function dibujaEscenario(){
     var color;
     for (let y = 0; y < Escenario.length; y++ ){
         for (let x = 0; x < Escenario[0].length; x++){
-            if(Escenario[y][x] == 1)
+            var tile = Escenario[y][x];
+            contexto.drawImage(tileMap,tile*32,0,32,32, anchoF*x,anchoF*y,anchoF,altoF);
+            /* if(Escenario[y][x] == 1)
                 color = agua;
             if(Escenario[y][x] == 0)
                 color = cesped;
@@ -52,14 +62,53 @@ function dibujaEscenario(){
             if(Escenario[y][x] == 5)
                 color = Cmina;
             if(Escenario[y][x] == 6)
-                color = Cpocion;
+                color = Cpocion; */
 
-            contexto.fillStyle = color;
-            contexto.fillRect(x *anchoF, y*altoF, anchoF,altoF)
-        }
+           /*  contexto.fillStyle = color;
+            contexto.fillRect(x *anchoF, y*altoF, anchoF,altoF) */
+        } 
     }
 }
 
+var Antorcha =function(x,y){
+    this.x=x;
+    this.y=y;
+    this.retraso = 10;
+    this.Fotograma = 0;
+    this.contador = 0;
+
+    this.cambiaFotoframa = function(){
+        if(this.Fotograma < 3){
+            this.Fotograma++;
+        }else {
+            this.Fotograma=0;
+        }
+    }
+
+    this.dibuja = function(){
+        if(this.contador <this.retraso){
+            this.contador++;
+        }else{
+            this.cambiaFotoframa();
+            this.contador = 0;
+        }
+        contexto.drawImage(tileMap,this.Fotograma*32,64,32,32, anchoF*x,anchoF*y,anchoF,altoF);
+
+    }
+    
+
+}
+
+var malo = function (x,y){
+    this.x=x;
+    this.y=y;
+
+    this.dibuja=function(){
+        contexto.drawImage(tileMap,0,32,32,32, this.x*anchoF,this.y*altoF,anchoF,altoF);
+
+    }
+   
+}
 
 var jugador = function(){
     this.x = 2;
@@ -67,10 +116,15 @@ var jugador = function(){
     this.color ="#ff0f00"
     this.llave = false;
     this.puerta = false;
+    this.vida = 100;
 
     this.dibuja = function(){
-        contexto.fillStyle = this.color
-        contexto.fillRect(this.x*anchoF, this.y*altoF, anchoF,altoF)
+        /* contexto.fillStyle = this.color
+        contexto.fillRect(this.x*anchoF, this.y*altoF, anchoF,altoF) */
+        this.dibuja=function(){
+            contexto.drawImage(tileMap,32,32,32,32, this.x*anchoF,this.y*altoF,anchoF,altoF);
+
+        }
         
     }
 
@@ -89,24 +143,32 @@ var jugador = function(){
         this.x--;
         this.obtenerObjeto();
         this.abrirPuerta();
+        this.PisaMina();
+        this.TomaPocion();
     }
     this.abajo =function(){
         if(this.margenes(this.x, this.y+1) == false)
         this.y++;
         this.obtenerObjeto();
         this.abrirPuerta();
+        this.PisaMina();
+        this.TomaPocion();
     }
     this.derecha =function(){
         if(this.margenes(this.x+1, this.y) == false)
         this.x++;
         this.obtenerObjeto();
         this.abrirPuerta();
+        this.PisaMina();
+        this.TomaPocion();
     }
     this.arriba =function(){
         if(this.margenes(this.x,this.y-1)==false)
         this.y--;
         this.obtenerObjeto();
         this.abrirPuerta();
+        this.PisaMina();
+        this.TomaPocion();
     }
     this.texto = function(){
         contexto.font = "50px impact";
@@ -131,6 +193,26 @@ var jugador = function(){
             alert("Has salido de los laboratorios de Umbrella!!!!!");
             
         }   
+    }
+
+    this.PisaMina = function (){
+        var mina = Escenario[this.y][this.x];
+        if (mina == 5){
+            Escenario[this.y][this.x] = 2;
+            this.vida-=60
+            alert("Has pisado una mina, tu vida es de: "+ this.vida)
+
+        }
+    }
+
+    this.TomaPocion = function(){
+        var pocion = Escenario[this.y][this.x]
+        if (pocion == 6){
+            Escenario[this.y][this.x] = 2;
+            this.vida += 30
+            alert("Has tomado una poción, tu vida es de: " + this.vida)
+        }
+
     }
    
 
@@ -199,6 +281,21 @@ function iniciar(){
     tileMap = new Image();
     tileMap.src ="img/tilemap___8261a820243e726___.png"
 
+    //Creamos antorcha
+    ImgAntorcha.push(new Antorcha(1,5));
+    ImgAntorcha.push(new Antorcha(1,4));
+    ImgAntorcha.push(new Antorcha(1,6));
+    ImgAntorcha.push(new Antorcha(1,7));
+    ImgAntorcha.push(new Antorcha(1,8));
+    ImgAntorcha.push(new Antorcha(1,9));
+    ImgAntorcha.push(new Antorcha(2,9));
+    ImgAntorcha.push(new Antorcha(2,8));
+    ImgAntorcha.push(new Antorcha(3,8));
+    ImgAntorcha.push(new Antorcha(3,9));
+
+    //Creamos ENEMIGO
+    enemigo.push(new malo())
+
     //Creamos el protagonista
     protagonista = new jugador();
     document.addEventListener("keydown",function(tecla){
@@ -231,13 +328,21 @@ function iniciar(){
 
 function borrarCanvas(){
     canvas.width = 800;
-    canvas.height = 550;
+    canvas.height = 800;
 }
 
 function principal(){
     borrarCanvas();
     dibujaEscenario();
     protagonista.dibuja();
+    for(let index = 0; index < enemigo.length; index++){
+        enemigo[index].dibuja();
+    }
+    
+    for(let index = 0; index < ImgAntorcha.length; index++){
+        ImgAntorcha[index].dibuja();
+    }
+
    /*  per1.dibuja();
     per2.dibuja();
     per3.dibuja();
