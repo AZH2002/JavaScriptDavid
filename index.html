@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen</title>
+    
+</head>
+<body>
+    <h3>Ejercicio 1</h3>
+    <form class="col s12">
+        <div class="row">
+            <div class="col s12">
+                Ingrese dos números <br><br>
+                Primer número.
+                <div class="input-field inline">
+                    <input id="Num1"  >
+                </div>
+                Segundo número.
+                <div class="input-field inline"> 
+                    <input id="Num2" >
+                </div><br><br>
+                
+                <button  onclick="suma()">Suma</button><br><br>
+                <button  onclick="resta()">Resta</button><br><br>
+                <button  onclick="multiplicacion()">Multiplicación</button><br><br>
+                <button  onclick="division()">División</button><br><br>    
+
+                El resultado es :
+                <div class="input-field inline"> 
+                    <input id="result" >
+                </div><br><br>
+
+            </div>
+        </div>
+    </form>
+
+    <h3>Ejercicio 3</h3>
+
+    <div class="row">
+        <div class="col s12">
+            Ingrese su nombre
+            <div class="input-field inline">
+                <input id="nombre"  >
+            </div>
+            Ingrese la primera nota.
+            <div class="input-field inline">
+                <input id="Nota1"  >
+            </div>
+            Ingrese la segunda nota.
+            <div class="input-field inline"> 
+                <input id="Nota2" >
+            </div>
+            Ingrese la tercera nota.
+            <div class="input-field inline"> 
+                <input id="Nota3" >
+            </div>
+            Ingrese la cuarta nota.
+            <div class="input-field inline"> 
+                <input id="Nota4" >
+            </div>
+            
+            <button type="button" onclick="promedio()">Promedio</button><br><br>
+
+            <div class="input-field inline"> 
+                <input id="promedio" >
+            </div><br><br>
+
+        </div>
+    </div>
+
+    <h3>Ejercicio 4</h3>
+
+    <div class="productBox">
+        <img id="shirt_image" src="https://i.pinimg.com/originals/ae/f8/6f/aef86f950e19c4c0bcc7560ae70b1ff4.jpg">
+        <div class="productInfo">
+            <p id="shirt_name">Camisa sin Logo</p>
+            <h3 id="shirt_price">US$ 10</h3>
+        </div>
+    </div>
+
+    <form>
+
+        <input type="radio" name="product" value="camisaSinLogo" checked>  Camiseta sin Logo<br>
+        <input type="radio" name="product" value="camisaSuper"> Camisa superhéroe<br>
+        <input type="radio" name="product" value="camisaProgramadores"> Camiseta para programadores
+        
+    </form>
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
